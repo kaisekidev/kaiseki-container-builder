@@ -119,7 +119,7 @@ Then add this line of code after the container was built.
 
 ```php
 // Call the HookCallbackProviderInterface to register hooks
-$container->get(\Kaiseki\WordPress\Hook\HookCallbackProviderInterface::class)->registerCallbacks();
+$container->get(\Kaiseki\WordPress\Hook\HookCallbackProviderRegistry::class)->registerCallbacks();
 ```
 
 ### Config Providers

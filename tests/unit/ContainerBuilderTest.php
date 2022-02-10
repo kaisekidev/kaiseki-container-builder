@@ -73,10 +73,10 @@ class ContainerBuilderTest extends TestCase
     public function instanceIsClonedCases(): iterable
     {
         yield 'withConfigFolder' => [
-            fn(ContainerBuilder $builder): ContainerBuilder => $builder->withConfigFolder('/')
+            fn(ContainerBuilder $builder): ContainerBuilder => $builder->withConfigFolder('/'),
         ];
         yield 'withCachedConfigFile' => [
-            fn(ContainerBuilder $builder): ContainerBuilder => $builder->withCachedConfigFile('cached-config.php')
+            fn(ContainerBuilder $builder): ContainerBuilder => $builder->withCachedConfigFile('cached-config.php'),
         ];
     }
 }
