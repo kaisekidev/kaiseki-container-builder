@@ -19,16 +19,30 @@ use function is_dir;
  */
 final class ContainerBuilder
 {
+    /**
+     * @var ContainerInterface|null
+     */
     private ?ContainerInterface $container = null;
-    /** @phpstan-var Providers */
+
+    /**
+     * @phpstan-var Providers
+     */
     private array $providers;
+
+    /**
+     * @var string|null
+     */
     private ?string $configFolder = null;
+
+    /**
+     * @var string|null
+     */
     private ?string $cachedConfigFile = null;
 
     /**
-     * @param Providers $providers Array of providers. These may be callables, or string values
-     *                             representing classes that act as providers. If the latter, they must
-     *                             be instantiable without constructor arguments.
+     * @phpstan-param Providers $providers Array of providers. These may be callables, or string values
+ *                                         representing classes that act as providers. If the latter, they must
+     *                                     be instantiable without constructor arguments.
      */
     public function __construct(?array $providers = null)
     {
