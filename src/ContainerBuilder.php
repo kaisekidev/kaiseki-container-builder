@@ -44,7 +44,10 @@ final class ContainerBuilder
  *                                         representing classes that act as providers. If the latter, they must
      *                                     be instantiable without constructor arguments.
      */
-    public function __construct(?array $providers = null)
+    public function __construct(
+        ?array $providers = null,
+        private readonly ?string $env = null
+    )
     {
         $this->providers = $providers === null ? [] : [
             ConfigProvider::class,
@@ -64,7 +67,8 @@ final class ContainerBuilder
         $clone = clone $this;
         $clone->container = null;
         $clone->configFolder = $configFolder;
-        $clone->providers[] = new PhpFileProvider($clone->configFolder . '/{{,*.}global,{,*.}local}.php');
+        $pattern = $this->env ? '/{{,*.}global,{,*.}' . $this->env . ',{,*.}testing}.php' : '/{{,*.}global,{,*.}testing}.php';
+        $clone->providers[] = new PhpFileProvider($clone->configFolder . $pattern);
         return $clone;
     }
 
