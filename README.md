@@ -118,8 +118,8 @@ composer require kaiseki/wp-hook
 Then add this line of code after the container was built.
 
 ```php
-// Call the HookCallbackProviderInterface to register hooks
-$container->get(\Kaiseki\WordPress\Hook\HookCallbackProviderRegistry::class)->registerCallbacks();
+// Call the HookProviderInterface to register hooks
+$container->get(\Kaiseki\WordPress\Hook\HookProviderRegistry::class)->registerCallbacks();
 ```
 
 ### Config Providers

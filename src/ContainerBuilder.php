@@ -19,36 +19,30 @@ use function is_dir;
  */
 final class ContainerBuilder
 {
-    /**
-     * @var ContainerInterface|null
-     */
+    /** @var ContainerInterface|null */
     private ?ContainerInterface $container = null;
 
-    /**
-     * @phpstan-var Providers
-     */
+    /** @phpstan-var Providers */
     private array $providers;
 
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     private ?string $configFolder = null;
 
-    /**
-     * @var string|null
-     */
+    /** @var non-empty-string|null */
     private ?string $cachedConfigFile = null;
 
     /**
      * @phpstan-param Providers $providers Array of providers. These may be callables, or string values
- *                                         representing classes that act as providers. If the latter, they must
+     *                                         representing classes that act as providers. If the latter, they must
      *                                     be instantiable without constructor arguments.
+     *
+     * @param ?array  $providers
+     * @param ?string $env
      */
     public function __construct(
         ?array $providers = null,
         private readonly ?string $env = null
-    )
-    {
+    ) {
         $this->providers = $providers === null ? [] : [
             ConfigProvider::class,
             ...$providers,
@@ -67,14 +61,15 @@ final class ContainerBuilder
         $clone = clone $this;
         $clone->container = null;
         $clone->configFolder = $configFolder;
-        $pattern = $this->env ? '/{{,*.}global,{,*.}' . $this->env . ',{,*.}testing}.php' : '/{{,*.}global,{,*.}testing}.php';
+        $pattern = $this->env !== null ? '/{{,*.}global,{,*.}' . $this->env . ',{,*.}testing}.php' : '/{{,*.}global,{,*.}testing}.php';
         $clone->providers[] = new PhpFileProvider($clone->configFolder . $pattern);
+
         return $clone;
     }
 
     /**
-     * @param string $cachedConfigFile Configuration cache file; config is loaded from this file if present,
-     *                                 and written to it if not.
+     * @param non-empty-string $cachedConfigFile configuration cache file; config is loaded from this file if present,
+     *                                           and written to it if not
      */
     public function withCachedConfigFile(string $cachedConfigFile): self
     {
@@ -82,6 +77,7 @@ final class ContainerBuilder
         $clone->container = null;
         $clone->cachedConfigFile = $cachedConfigFile;
         $clone->providers[] = new ArrayProvider([ConfigAggregator::ENABLE_CACHE => true]);
+
         return $clone;
     }
 
@@ -93,6 +89,7 @@ final class ContainerBuilder
 
         $config = $this->buildConfig();
         $this->container = $this->buildContainer($config);
+
         return $this->container;
     }
 
@@ -106,6 +103,7 @@ final class ContainerBuilder
         $config = $config->getMergedConfig();
         $dependencies = $config['dependencies'] ?? [];
         $dependencies['services']['config'] = $config;
+
         return new ServiceManager($dependencies);
     }
 }

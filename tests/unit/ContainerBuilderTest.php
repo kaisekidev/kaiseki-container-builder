@@ -56,6 +56,7 @@ class ContainerBuilderTest extends TestCase
 
     /**
      * @dataProvider instanceIsClonedCases
+     *
      * @param callable(ContainerBuilder):ContainerBuilder $modifyBuilder
      */
     public function testInstanceIsCloned(callable $modifyBuilder): void

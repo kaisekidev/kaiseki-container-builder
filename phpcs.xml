@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="container-builder coding standard">
+<ruleset name="Kaiseki coding standard">
     <rule ref="Kaiseki"/>
 
     <arg name="parallel" value="80"/>
