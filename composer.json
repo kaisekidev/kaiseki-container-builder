@@ -64,7 +64,6 @@
       "Kaiseki\\Test\\Unit\\ContainerBuilder\\": "tests/unit"
     }
   },
-  "repositories": [],
   "minimum-stability": "stable",
   "scripts": {
     "check": [
