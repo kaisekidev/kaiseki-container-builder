@@ -33,7 +33,7 @@
     "laminas/laminas-config-aggregator": "^1.7",
     "laminas/laminas-di": "^3.3",
     "laminas/laminas-servicemanager": "^3.10",
-    "psr/container": "^1.1 || ^2.0"
+    "psr/container": "^1.1"
   },
   "require-dev": {
     "kaiseki/php-coding-standard": "dev-master",
@@ -69,7 +69,8 @@
     "check": [
       "@check-deps",
       "@cs-check",
-      "@phpstan"
+      "@phpstan",
+      "@phpunit"
     ],
     "check-deps": "composer-require-checker --config-file=require-checker.config.json",
     "cs-check": "php-cs-fixer fix --dry-run",

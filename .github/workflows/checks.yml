@@ -38,3 +38,16 @@ jobs:
           composer check-deps
           composer cs-check
           composer phpstan -- --no-progress
+
+      - name: Tests
+        run: |
+          vendor/bin/phpunit --coverage-clover=coverage.xml --stop-on-failure
+
+      - name: Monitor coverage
+        if: github.event_name == 'pull_request'
+        uses: slavcodev/coverage-monitor-action@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          clover_file: "coverage.xml"
+          threshold_alert: 100
+          threshold_warning: 100
