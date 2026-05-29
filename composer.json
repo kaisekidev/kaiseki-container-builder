@@ -32,7 +32,7 @@
     "php": "^8.2",
     "laminas/laminas-config-aggregator": "^1.7",
     "laminas/laminas-di": "^3.3",
-    "laminas/laminas-servicemanager": "^3.10",
+    "laminas/laminas-servicemanager": "^3.10 || ^4.0",
     "psr/container": "^1.1 || ^2.0"
   },
   "require-dev": {
