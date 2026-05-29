@@ -12,10 +12,13 @@ use Laminas\Di\ConfigProvider;
 use Laminas\ServiceManager\ServiceManager;
 use Psr\Container\ContainerInterface;
 
+use function is_array;
 use function is_dir;
 
 /**
  * @phpstan-type Providers list<class-string|callable(): array<array-key, mixed>|PhpFileProvider>
+ *
+ * @phpstan-import-type ServiceManagerConfiguration from ServiceManager
  */
 final class ContainerBuilder
 {
@@ -32,12 +35,12 @@ final class ContainerBuilder
     private ?string $cachedConfigFile = null;
 
     /**
-     * @phpstan-param Providers $providers Array of providers. These may be callables, or string values
-     *                                         representing classes that act as providers. If the latter, they must
-     *                                     be instantiable without constructor arguments.
-     *
      * @param ?array  $providers
      * @param ?string $env
+     *
+     * @phpstan-param Providers $providers Array of providers. These may be callables, or string values
+     *                                     representing classes that act as providers. If the latter, they must
+     *                                     be instantiable without constructor arguments.
      */
     public function __construct(
         ?array $providers = null,
@@ -98,12 +101,17 @@ final class ContainerBuilder
         return new ConfigAggregator($this->providers, $this->cachedConfigFile);
     }
 
-    private function buildContainer(ConfigAggregator $config): ContainerInterface
+    private function buildContainer(ConfigAggregator $configAggregator): ContainerInterface
     {
-        $config = $config->getMergedConfig();
+        $config = $configAggregator->getMergedConfig();
         $dependencies = $config['dependencies'] ?? [];
-        $dependencies['services']['config'] = $config;
+        $dependencies = is_array($dependencies) ? $dependencies : [];
+        $services = $dependencies['services'] ?? [];
+        $services = is_array($services) ? $services : [];
+        $services['config'] = $config;
+        $dependencies['services'] = $services;
 
+        /** @var ServiceManagerConfiguration $dependencies */
         return new ServiceManager($dependencies);
     }
 }

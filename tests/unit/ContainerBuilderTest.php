@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use Kaiseki\ContainerBuilder\ContainerBuilder;
 use Laminas\ConfigAggregator\ConfigAggregator;
 use Laminas\Di\ConfigInterface as LamnasDiConfigInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ContainerBuilderTest extends TestCase
@@ -55,10 +56,9 @@ class ContainerBuilderTest extends TestCase
     }
 
     /**
-     * @dataProvider instanceIsClonedCases
-     *
      * @param callable(ContainerBuilder):ContainerBuilder $modifyBuilder
      */
+    #[DataProvider('instanceIsClonedCases')]
     public function testInstanceIsCloned(callable $modifyBuilder): void
     {
         $builderA = new ContainerBuilder([]);
@@ -71,7 +71,7 @@ class ContainerBuilderTest extends TestCase
     /**
      * @return iterable<string, array{callable(ContainerBuilder):ContainerBuilder}>
      */
-    public function instanceIsClonedCases(): iterable
+    public static function instanceIsClonedCases(): iterable
     {
         yield 'withConfigFolder' => [
             fn(ContainerBuilder $builder): ContainerBuilder => $builder->withConfigFolder('/'),
