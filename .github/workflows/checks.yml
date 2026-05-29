@@ -5,6 +5,11 @@ on:
   push:
     branches: [master]
 
+permissions:
+  contents: read
+  pull-requests: write
+  statuses: write
+
 jobs:
   checks:
     uses: kaisekidev/.github/.github/workflows/checks.yml@v1
