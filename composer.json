@@ -29,20 +29,20 @@
     "source": "https://github.com/kaisekidev/kaiseki-container-builder"
   },
   "require": {
-    "php": "^8.1",
+    "php": "^8.2",
     "laminas/laminas-config-aggregator": "^1.7",
     "laminas/laminas-di": "^3.3",
     "laminas/laminas-servicemanager": "^3.10",
-    "psr/container": "^1.1"
+    "psr/container": "^1.1 || ^2.0"
   },
   "require-dev": {
-    "kaiseki/php-coding-standard": "dev-master",
-    "maglnet/composer-require-checker": "^3.5",
-    "phpstan/extension-installer": "^1.0",
-    "phpstan/phpstan": "^1.2",
-    "phpstan/phpstan-phpunit": "^1.0",
-    "phpstan/phpstan-strict-rules": "^1.1",
-    "phpunit/phpunit": "^9.5",
+    "kaiseki/php-coding-standard": "^1.0",
+    "maglnet/composer-require-checker": "^4.0",
+    "phpstan/extension-installer": "^1.4",
+    "phpstan/phpstan": "^2.0",
+    "phpstan/phpstan-phpunit": "^2.0",
+    "phpstan/phpstan-strict-rules": "^2.0",
+    "phpunit/phpunit": "^11.0",
     "roave/security-advisories": "dev-latest"
   },
   "config": {
